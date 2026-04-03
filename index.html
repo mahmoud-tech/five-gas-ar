@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فايف جاز | نظام متطور لكشف الغاز</title>
+  <meta name="description" content="تقنية حديثة لاكتشاف تسرب الغاز بدقة وسرعة لضمان الأمان">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.querySelector('.logo-icon img');
+    if (!logo || !logo.complete || logo.naturalWidth === 0) {
+      document.querySelector('.logo-icon').innerHTML = 'FG';
+      document.querySelector('.logo-icon').style.background = 'linear-gradient(135deg, #00D1FF 0%, #1e3a8a 100%)';
+    }
+  });
+</script>
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #00D1FF;
+      --primary-dark: #00a8d4;
+      --dark: #0f172a;
+      --darker: #0a1120;
+      --light: #f8fafc;
+      --gray: #94a3b8;
+      --dark-gray: #334155;
+      --gradient: linear-gradient(135deg, #00D1FF 0%, #1e3a8a 100%);
+      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--darker);
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+      direction: rtl;
+    }
+    
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background-color: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+    
+    header.scrolled {
+      padding: 1rem 5%;
+      background-color: rgba(2, 6, 23, 0.95);
+    }
+
+    .logo-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient);
+      border-radius: 50%;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 209, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .logo-icon img {
+      width: 100%;
+      height: auto;
+      min-width: 100px;
+      image-rendering: crisp-edges;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .logo-icon:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 209, 255, 0.4);
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    nav a {
+      color: var(--gray);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    nav a:hover {
+      color: var(--primary);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+      right: 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 800px;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(circle at 30% 50%, #0f172a 0%, #020617 100%);
+      padding-top: 80px;
+    }
+    
+    .hero-container {
+      display: flex;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 5%;
+      width: 100%;
+      gap: 5%;
+    }
+    
+    .hero-text {
+      flex: 0 0 45%;
+      z-index: 2;
+      text-align: right;
+    }
+    
+    .hero-text h1 {
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to left, #ffffff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .hero-text p {
+      font-size: 1.25rem;
+      color: var(--gray);
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+    }
+    
+    .hero-image {
+      flex: 1;
+      position: relative;
+      height: 80vh;
+      max-height: 700px;
+    }
+    
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: left;
+      filter: drop-shadow(0 0 30px rgba(0, 209, 255, 0.3));
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2.25rem;
+      background: var(--gradient);
+      color: white;
+      font-weight: 600;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(0, 209, 255, 0.3);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 209, 255, 0.4);
+    }
+
+    /* Sections */
+    section {
+      padding: 6rem 5%;
+      position: relative;
+    }
+    
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gradient);
+      border-radius: 3px;
+    }
+
+    /* About Section */
+    #about {
+      background-color: var(--dark);
+    }
+    
+    .about-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .about-text {
+      color: var(--gray);
+    }
+    
+    .about-text p {
+      margin-bottom: 1.5rem;
+      text-align: right;
+    }
+    
+    .about-image {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    
+    .about-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient);
+      opacity: 0.1;
+    }
+
+    /* Contact Section */
+    #contact {
+      background-color: var(--darker);
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .contact-card {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-5px);
+      background: rgba(30, 41, 59, 0.8);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .contact-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .contact-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .contact-card p {
+      color: var(--gray);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #020617;
+      padding: 3rem 5% 2rem;
+      text-align: center;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+    
+    .copyright {
+      color: var(--dark-gray);
+      font-size: 0.875rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--light);
+      text-decoration: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header">
+   <a href="#" class="logo">
+    <span class="logo-icon">
+      <img src="D:\logo34.webp" 
+           alt="شعار فايڤ جاز"
+           onerror="this.onerror=null;this.src='images/five-gas-logo.png'">
+    </span>
+    <span>فايڤ جاز</span>
+  </a>
+    
+    <nav>
+      <a href="#about">من نحن</a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-text">
+        <h1>فايڤ جاز</h1>
+        <p>جيل جديد من أجهزة كشف الغاز مع مراقبة دقيقة وتنبيهات فورية لضمان أعلى درجات الأمان</p>
+        <a href="D:\order-ar.html" class="cta-button">اطلب الآن</a>
+      </div>
+      <div class="hero-image">
+        <img src="D:\five-gas-sensor.webp" alt="جهاز كشف الغاز فايف" loading="eager">
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2 class="section-title">من نحن</h2>
+    
+    <div class="about-content">
+      <div class="about-text">
+        <p>في فايف جاز، نعيد تعريف تكنولوجيا كشف الغاز باستخدام أحدث التقنيات. قام فريقنا من المهندسين وخبراء السلامة بتطوير أنظمة كشف الغاز الأكثر موثوقية في السوق.</p>
+        <p>تتميز أجهزتنا بتصميم أنيق وسهل الاستخدام، مع تنبيهات فورية عند حدوث أي تسرب. وبفضل الاتصال الذكي، يمكنك متابعة الأمان من أي مكان.</p>
+        <p>موثوق بنا من قبل المصانع والمنازل الذكية ومؤسسات السلامة حول العالم.</p>
+      </div>
+      
+      <div class="about-image">
+        <img src="D:\feautres.webp" alt="مميزات جهاز فايف جاز" style="width:100%; height:300px; object-fit:cover; border-radius:1rem;">
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2 class="section-title">تواصل معنا</h2>
+    
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">📧</div>
+        <h3>البريد الإلكتروني</h3>
+        <p>fivegas@example.com</p>
+      </div>
+      
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h3>الهاتف</h3>
+        <p>4321 555 100 20+</p>
+      </div>
+      
+      <div class="contact-card">
+        <div class="contact-icon">🏢</div>
+        <h3>المقر الرئيسي</h3>
+        <p>القاهرة، مصر</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="#about">من نحن</a>
+        <a href="#contact">تواصل معنا</a>
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط</a>
+      </div>
+      <p class="copyright">© 2026 فايڤ جاز. جميع الحقوق محفوظة</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    const header = document.getElementById('header');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
